@@ -4,6 +4,8 @@ import { Search } from 'lucide-react'
 
 import { FormEvent, useState } from 'react'
 
+import Results from './components/Results'
+
 const Container = styled.div`
   height: 100vh;
   display: flex;
@@ -13,10 +15,10 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
-  height: 55%;
-  width: 30%;
+  max-width: 20%;
   background-color: rgb(37 99 235);
   border-radius: 0.5rem;
+  box-shadow: 0px 0px 2px #000;
 `
 
 const Form = styled.form`
@@ -39,8 +41,8 @@ const Button = styled.button`
   background: none;
   border: none;
   position: absolute;
-  right: 24%;
-  top: 33%;
+  right: 12%;
+  top: 35%;
 `
 
 function App() {
@@ -66,6 +68,7 @@ function App() {
             <Search />
           </Button>
         </Form>
+        {weatherInfo && <Results weatherInfo={weatherInfo} />}
       </Wrapper>
     </Container>
   )
