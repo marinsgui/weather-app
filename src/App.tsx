@@ -5,6 +5,7 @@ import { Search } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 
 import Results from './components/Results'
+import Loading from './components/Loading'
 
 const Container = styled.div`
   height: 100vh;
@@ -15,7 +16,7 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
-  max-width: 20%;
+  min-width: 20%;
   background-color: rgb(37 99 235);
   border-radius: 0.5rem;
   box-shadow: 0px 0px 2px #000;
@@ -49,14 +50,16 @@ function App() {
 
   const [city, setCity] = useState("")
   const [weatherInfo, setWeatherInfo] = useState()
+  const [loading, setLoading] = useState(false)
 
 
     async function fetchWeather(e: FormEvent) {
+      setLoading(true)
       e.preventDefault()
       const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=pt_br&units=metric&appid=d5bbec1f9469a4d00df8f6ac6e8adce1`)
       const data = await resp.json()
       setWeatherInfo(data)
-      console.log(data)
+      setLoading(false)
     }
 
   return (
@@ -68,6 +71,7 @@ function App() {
             <Search />
           </Button>
         </Form>
+        {loading && <Loading />}
         {weatherInfo && <Results weatherInfo={weatherInfo} />}
       </Wrapper>
     </Container>
